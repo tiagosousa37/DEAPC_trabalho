@@ -5,3 +5,5 @@ A aplicação será utilizada por dois tipos de utilizadores: o cliente , o util
 Quanto às principais funcionalidades, o cliente pode efetuar login ou registo na plataforma, pesquisar e visualizar detalhes dos vários serviços disponíveis, realizar pagamentos de forma segura e visualizar antigas reservas. Quanto aos administradores, estes podem adicionar, editar e remover serviços disponíveis, gerir a disponibilidade destes, gerir as informações dos clientes registados e monitorizar transações e o estado das reservas em tempo real.
 
 Tiago Sousa
+
+Diogo Bizarro 
