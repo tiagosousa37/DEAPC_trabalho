@@ -3,3 +3,5 @@
 1) O objetivo desta aplicação é desenvolver uma aplicação web de reservas online que permita aos utilizadores pesquisar, reservar e gerir vários serviços, como hotéis, voos e eventos. Os utilizadores podem consultar a disponibilidade, realizar reservas e efetuar pagamentos de forma segura. A aplicação também fornece aos administradores ferramentas para monitorizar e gerir todas as reservas e informações dos clientes.
 A aplicação será utilizada por dois tipos de utilizadores: o cliente , o utilizador que procura, reserva e gere as suas próprias reservas, e o administrador, o responsável por gerir os serviços disponíveis, os dados dos clientes e as configurações do sistema.
 Quanto às principais funcionalidades, o cliente pode efetuar login ou registo na plataforma, pesquisar e visualizar detalhes dos vários serviços disponíveis, realizar pagamentos de forma segura e visualizar antigas reservas. Quanto aos administradores, estes podem adicionar, editar e remover serviços disponíveis, gerir a disponibilidade destes, gerir as informações dos clientes registados e monitorizar transações e o estado das reservas em tempo real.
+
+Tiago Sousa
