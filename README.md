@@ -7,3 +7,5 @@ Quanto às principais funcionalidades, o cliente pode efetuar login ou registo n
 Tiago Sousa
 
 Diogo Bizarro 
+
+Ricardo Correia
