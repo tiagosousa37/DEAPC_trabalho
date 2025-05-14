@@ -9,3 +9,18 @@ Tiago Sousa
 Diogo Bizarro 
 
 Ricardo Correia
+
+2) Ator: Cliente
+
+CLI01 - Efetuar login ou registo - Como cliente, quero efetuar login ou registo na aplicação (prioridade - Alta)
+CLI02 - Visualizar os vários serviços disponíveis - Como cliente, quero pesquisar e visualizar detalhes dos vários serviços disponíveis (prioridade - Alta)
+CLI03 - Efetuar o pagamento - Como cliente, quero realizar pagamentos de forma segura na aplicação (prioridade - Alta)
+CLI04 - Ver o histórico de reservas - Como cliente, quero visualizar reservas antigas (prioridade - Média)
+
+Ator: Administrador
+
+ADM01 - Gerir serviços - Como administrador, quero adicionar, editar ou remover os serviços disponíveis (prioridade - Alta)
+ADM02 - Ver reservas - Como administrador, quero consultar todas as reservas efetuadas (prioridade - Alta)
+ADM03 - Atualizar a disponibilidade - Como administrador, quero atualizar a disponnibilidade dos vários serviços (prioridade - Alta)
+ADM04 - Gerir utilizadores - Como administrador, quero consultar e gerir as contas dos utilizadores (prioridade - Média)
+
