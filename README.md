@@ -24,3 +24,12 @@ ADM02 - Ver reservas - Como administrador, quero consultar todas as reservas efe
 ADM03 - Atualizar a disponibilidade - Como administrador, quero atualizar a disponnibilidade dos vários serviços (prioridade - Alta);
 ADM04 - Gerir utilizadores - Como administrador, quero consultar e gerir as contas dos utilizadores (prioridade - Média);
 
+3.Especificação
+1)
+a) Na página de entrada da aplicação web irá ser uma página de login onde o utilizador terá de criar uma conta ou se já tiver conta iniciar sessão na sua conta. Nesta página irá ter uma breve descrição da empresa de reservas online. O utilizador e o administrador vão ter acesso a esta página.
+b)Na primeira página será o login/registo do utilizador e o logo da aplicação e um breve texto de apresentação da aplicação
+Na segunda página irá aparecer os vários serviços, tendo em cada que em cada serviço irá aparecer o nome do serviço uma imagem do serviço, o preço, a disponibilidade e um botão para reservar. Esta página vai ser dedicada para o utilizador, pois o administrador terá outra página dedicada a ele.
+A terceira página será para o administrador onde este será redirecionado para este quando no login fôr identificado como administrador. Esta página será igual à do utilizador mas o administrador terá um link de acesso na página onde este será redirecionado para outra página que vai ter as reservas feitas pelo utilizador.
+Numa quarta página que será aberta quando se carrega no botão de reservar de um serviço interessado pelo utilizador irá aparecer os detalhes do serviço interessado como preço, disponibilidade, data de reserva pretendida pelo utilizador, métodos de pagamento disponíveis e botão para confirmar reserva.
+A quinta página é a página que o administrador é redirecionado quando carrega no link de reservas da terceira página e esta terá as reservas feitas pelo utilizador para que o administrador possa gerir a disponibilidade dos serviços. 
+A sexta página será dedicada para receber feedbacks dos utilizadores sobre os serviços da aplicação web.
