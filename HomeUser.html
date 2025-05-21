@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Área do Utilizador - ReservaFérias</title>
+</head>
+<body>
+    <header>
+        <div class="logo-container">
+            <img src="images/logo.png" alt="Sistema de Reservas Online" class="logo">
+        </div>
+        <nav>
+            <a href="nova-reserva.html">Nova Reserva</a>
+            <a href="perfil.html">Perfil</a>
+            <a href="logout.html">Sair</a>
+        </nav>
+    </header>
+
+    <main>
+        <section class="barra-pesquisa">
+            <input type="text" placeholder="Pesquisar destinos de férias..." id="campo-pesquisa">
+            <button>🔍</button>
+        </section>
+
+        <section class="filtros">
+            <h3>Filtros</h3>
+            <label for="continente">Continente:</label>
+            <select id="continente">
+                <option value="">Todos</option>
+                <option value="europa">Europa</option>
+                <option value="america">América</option>
+                <option value="asia">Ásia</option>
+                <option value="africa">África</option>
+            </select>
+
+            <label for="data">Data da viagem:</label>
+            <input type="date" id="data">
+        </section>
+
+        <section class="tendencias">
+            <h3>Destinos Populares</h3>
+            <ul>
+                <li>Maldivas – Pacote 7 noites com tudo incluído</li>
+                <li>Suíça – Férias na neve em janeiro</li>
+                <li>Algarve – Fim de semana relaxante à beira-mar</li>
+                <li>Nova Iorque – City break de 5 dias</li>
+            </ul>
+        </section>
+    </main>
+
+    <footer>
+        <p>© 2025 ReservasOnline | Contacto: apoio@reservasonline.pt</p>
+    </footer>
+</body>
+</html>
