@@ -1,13 +1,130 @@
-<!Doctype html>
-<html>
+<!DOCTYPE html>
 <head>
-<title> Sistemas de reservas online </title>
-<link rel="stylesheet" href="styles/reservasAdmin.css">
+  <title>Admin - Reservas</title>
+  <link rel="stylesheet" href="styles/reservasAdmin.css">
 </head>
 <body>
-<h1> Reservas </h1>
-<p><strong>Data de entrada:</strong> <input type="date"></p>
-  <p><strong>Data de saída:</strong> <input type="date"></p>
-<button>Bloquear</button>
+
+  <aside class="sidebar">
+    <img src="images/LOGO.png" alt="Sistema de Reservas Online" width="180" height="100">
+    <nav>
+      <ul>
+        <li><a href="#">Dashboard</a></li>
+        <li><a href="#">Hotéis</a></li>
+        <li><a href="#" class="active">Reservas</a></li>
+        <li><a href="#">Clientes</a></li>
+        <li><a href="#">Definições</a></li>
+      </ul>
+    </nav>
+  </aside>
+
+  <main class="content">
+    <header>
+      <h1>Gestão de Reservas</h1>
+      <p>Aqui pode visualizar e gerir todas as reservas.</p>
+    </header>
+
+    <section class="calendar-section">
+      <h2>Selecione uma Data</h2>
+      <input type="date" id="dataSelecionada" name="dataSelecionada">
+
+      <div class="reserva-do-dia">
+        <h3>Reservas do dia:</h3>
+        <ul id="listaReservas">
+          <li>Selecione uma data para ver as reservas.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="reservas-table">
+      <h2>Todas as Reservas</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Cliente</th>
+            <th>Serviço</th>
+            <th>Data de Entrada</th>
+            <th>Data de Saída</th>
+            <th>Estado</th>
+            <th>Ações</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>#1001</td>
+            <td>Ana Silva</td>
+            <td>Hotel Praia Sol</td>
+            <td>05-04-2025</td>
+            <td>10-04-2025</td>
+            <td><span class="status confirmed">Confirmada</span></td>
+            <td>
+              <button class="btn edit">Editar</button>
+              <button class="btn delete">Eliminar</button>
+            </td>
+          </tr>
+          <tr>
+            <td>#1002</td>
+            <td>Carlos Mendes</td>
+            <td>Voo Lisboa → Madrid</td>
+            <td>20-03-2025</td>
+            <td>25-03-2025</td>
+            <td><span class="status pending">Pendente</span></td>
+            <td>
+              <button class="btn edit">Editar</button>
+              <button class="btn delete">Eliminar</button>
+            </td>
+          </tr>
+          <tr>
+            <td>#1003</td>
+            <td>Diana Costa</td>
+            <td>Evento Festival da Música</td>
+            <td>15-06-2025</td>
+            <td>18-06-2025</td>
+            <td><span class="status canceled">Cancelada</span></td>
+            <td>
+              <button class="btn edit">Editar</button>
+              <button class="btn delete">Eliminar</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+  </main>
+
+  <script>
+    const dataInput = document.querySelector('#dataSelecionada');
+    const listaReservas = document.querySelector('#listaReservas');
+
+    // Dados simulados das reservas
+    const reservas = [
+      { id: "#1001", cliente: "Ana Silva", servico: "Hotel Praia Sol", dataEntrada: "2025-04-05" },
+      { id: "#1002", cliente: "Carlos Mendes", servico: "Voo Lisboa → Madrid", dataEntrada: "2025-03-20" },
+      { id: "#1003", cliente: "Diana Costa", servico: "Festival da Música", dataEntrada: "2025-06-15" }
+    ];
+
+    dataInput.addEventListener('change', () => {
+      const dataSelecionada = dataInput.value;
+
+      if (!dataSelecionada) {
+        listaReservas.innerHTML = '<li>Selecione uma data.</li>';
+        return;
+      }
+
+      const reservasDoDia = reservas.filter(reserva => reserva.dataEntrada === dataSelecionada);
+
+      if (reservasDoDia.length === 0) {
+        listaReservas.innerHTML = '<li>Nenhuma reserva encontrada para esta data.</li>';
+      } else {
+        listaReservas.innerHTML = '';
+        reservasDoDia.forEach(reserva => {
+          const li = document.createElement('li');
+          li.textContent = `${reserva.cliente} - ${reserva.servico}`;
+          listaReservas.appendChild(li);
+        });
+      }
+    });
+  </script>
+
 </body>
 </html>
