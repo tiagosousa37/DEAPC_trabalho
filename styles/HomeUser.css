@@ -1,0 +1,86 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+    color: #333;
+}
+header {
+    background-color: #ffffff;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid #ddd;
+}
+
+.logo-container img {
+    height: 60px;
+}
+
+nav a {
+    margin: 0 10px;
+    text-decoration: none;
+    color: #007bff;
+    font-weight: bold;
+}
+
+nav a:hover {
+    text-decoration: underline;
+}
+
+.barra-pesquisa {
+    padding: 20px;
+    text-align: center;
+}
+
+.barra-pesquisa input {
+    padding: 10px;
+    width: 300px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.barra-pesquisa button {
+    padding: 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.barra-pesquisa button:hover {
+    background-color: #0056b3;
+}
+
+.filtros {
+    padding: 20px;
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    margin: 20px;
+    border-radius: 6px;
+}
+
+.filtros label,
+.filtros select,
+.filtros input[type="date"] {
+    margin: 10px;
+}
+
+.tendências {
+    padding: 20px;
+    margin: 0 20px;
+}
+
+.tendências h3 {
+    text-transform: capitalize;
+}
+
+footer {
+    margin-top: 40px;
+    padding: 20px;
+    background-color: #f1f1f1;
+    text-align: center;
+    font-size: 0.9em;
+    color: #666;
+}
