@@ -1,5 +1,4 @@
-/* Reset básico */
-* {
+{
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -12,7 +11,6 @@ body {
   line-height: 1.6;
 }
 
-/* Cabeçalho */
 header {
   background-color: #007BFF;
   color: white;
@@ -51,14 +49,12 @@ nav a:hover {
   color: #ffd700;
 }
 
-/* Conteúdo principal */
 main {
   padding: 30px;
   max-width: 1000px;
   margin: auto;
 }
 
-/* Barra de pesquisa */
 .barra-pesquisa {
   display: flex;
   justify-content: center;
@@ -88,7 +84,6 @@ main {
   background-color: #0056b3;
 }
 
-/* Filtros */
 .filtros {
   background-color: white;
   padding: 20px;
@@ -117,7 +112,6 @@ main {
   border-radius: 4px;
 }
 
-/* Secção tendências */
 .tendências {
   background-color: white;
   padding: 20px;
@@ -142,7 +136,6 @@ main {
   border-radius: 5px;
 }
 
-/* Rodapé */
 footer {
   text-align: center;
   padding: 20px;
@@ -152,7 +145,6 @@ footer {
   font-size: 0.9rem;
 }
 
-/* Responsividade básica */
 @media (max-width: 768px) {
   nav {
     flex-direction: column;
