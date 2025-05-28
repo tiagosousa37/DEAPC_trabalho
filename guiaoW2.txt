@@ -1,0 +1,20 @@
+Guião W3
+
+3) User story - Dados Inseridos - Processamento - Armazenamento no servidor
+
+CL01 - Criar uma conta - Nome, email e palavra-passe - Verificar que o email é único e encriptar a palavra-passe - Armazenar na área dos utilizadores;
+CL02 - Fazer uma reserva - Tipo de serviço, data e nº de pessoas - Verificar a disponibilidade - Armazenar na área das reservas;
+CL03 - Efetuar o pagamento - Dados do cartão (não armazenados) e nº da reserva - Efetuar o pagamento - Armazenar na área dos pagamentos; 
+
+ADM01 - Tipo de serviço, nome e descrição - Validar os dados inseridos e criar o serviço - Armazenar na área dos serviços;
+ADM02 - Gerir disponibilidade - Data e disponibilidade - Atualizar disponibilidade - Armazenar na área da dispobilidade dos serviços;
+
+
+4) Nome - User story - Descrição
+
+paginaInicial.php - Iniciar sessão - Processa os dados de 
+registo.php -
+HomeUser.php -
+HomeAdmin.php -
+ReservasUser.php -
+ReservasAdmin.php -
