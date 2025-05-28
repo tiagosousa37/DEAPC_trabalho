@@ -12,9 +12,9 @@ ADM02 - Gerir disponibilidade - Data e disponibilidade - Atualizar disponibilida
 
 4) Nome - User story - Descrição
 
-paginaInicial.php - Iniciar sessão - Processa os dados de 
-registo.php -
-HomeUser.php -
+paginaInicial.php - Iniciar sessão - Processa os dados de login, verificando se o email já existe;
+registo.php - Criar uma conta - Recebe os dados do formulário, verifica se o email existe e encripta a palavra-passe;
+HomeUser.php - Visualizar os diferentes serviços - Filtra e retorna serviços com base em localização, datas e tipo de serviço;
+ReservasUser.php - Efetuar uma reserva - Cria uma nova reserva e atualiza a disponibilidade do serviço;
 HomeAdmin.php -
-ReservasUser.php -
 ReservasAdmin.php -
