@@ -18,12 +18,20 @@
 
     <main>
         <section class="barra-pesquisa">
-            <input type="text" placeholder="Pesquisar destinos de férias..." id="campo-pesquisa">
+            <input type="text" placeholder="Pesquisar destinos..." id="campo-pesquisa">
             <button>🔍</button>
         </section>
 
         <section class="filtros">
             <h3>Filtros</h3>
+		<label for="tipo-evento">Tipo de evento:</label>
+		<select id="tipo-evento">
+		<option value="">Todos</option>
+		<option value="voos">Voos</option>
+		<option value="concertos">Concertos</option>
+		<option value="hoteis">Hotéis</option>
+	</select>
+
             <label for="continente">Continente:</label>
             <select id="continente">
                 <option value="">Todos</option>
@@ -31,6 +39,7 @@
                 <option value="america">América</option>
                 <option value="asia">Ásia</option>
                 <option value="africa">África</option>
+		<option value="africa">Oceânia</option>
             </select>
 
             <label for="data">Data da viagem:</label>
@@ -46,11 +55,11 @@
         <div class="card" style="background-image: url('images/suica.jpg');">
             <span>Suíça – Férias na neve em janeiro</span>
         </div>
-        <div class="card" style="background-image: url('images/algarve.jpg');">
-            <span>Algarve – Fim de semana à beira-mar</span>
+        <div class="card" style="background-image: url('images/bad-bunny.jpg');">
+            <span>Concerto Bad Bunny – Dias 26 e 27 de maio de 2026</span>
         </div>
-        <div class="card" style="background-image: url('images/nova-iorque.jpg');">
-            <span>Nova Iorque – Viagem de 5 dias</span>
+        <div class="card" style="background-image: url('images/swiss.jpg');">
+            <span>Voo Porto  ->  Zurique - 12h20 -> 15h50</span>
         </div>
     </div>
 </section>
