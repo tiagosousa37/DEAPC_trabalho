@@ -1,4 +1,4 @@
-Guião W3
+Guião W2
 
 3) User story - Dados Inseridos - Processamento - Armazenamento no servidor
 
@@ -16,5 +16,5 @@ paginaInicial.php - Iniciar sessão - Processa os dados de login, verificando se
 registo.php - Criar uma conta - Recebe os dados do formulário, verifica se o email existe e encripta a palavra-passe;
 HomeUser.php - Visualizar os diferentes serviços - Filtra e retorna serviços com base em localização, datas e tipo de serviço;
 ReservasUser.php - Efetuar uma reserva - Cria uma nova reserva e atualiza a disponibilidade do serviço;
-HomeAdmin.php -
-ReservasAdmin.php -
+HomeAdmin.php - Mostra ligações para outras secções da área administrativa - Apresenta a página inicial do administrador com navegação e acesso às principais funcionalidades;
+ReservasAdmin.php - Ver lista de clientes/reservas - Mostra uma tabela com todas as reservas, incluindo os dados da reserva (nome do cliente, tipo de serviço, datas e o estado da reserva);
