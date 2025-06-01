@@ -17,6 +17,7 @@
     </header>
 
     <main>
+        <form action="scripts/HomeUser.php" method="POST">
         <section class="barra-pesquisa">
             <input type="text" placeholder="Pesquisar destinos..." id="campo-pesquisa">
             <button>🔍</button>
@@ -24,6 +25,7 @@
 
         <section class="filtros">
             <h3>Filtros</h3>
+             <form action="scripts/filtrarServicos.php" method="POST">
 		<label for="tipo-evento">Tipo de evento:</label>
 		<select id="tipo-evento">
 		<option value="">Todos</option>
