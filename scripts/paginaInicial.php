@@ -18,18 +18,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if ($user && password_verify($password, $user['password'])) {
         echo "Login bem-sucedido para o utilizador: " . htmlspecialchars($user['nome']);
 
-        // Atualizar último acesso
         $stmt = $db->prepare('UPDATE users SET ultimo_acesso = :acesso WHERE id = :id');
         $stmt->bindValue(':acesso', date('Y-m-d H:i:s'), SQLITE3_TEXT);
         $stmt->bindValue(':id', $user['id'], SQLITE3_INTEGER);
         $stmt->execute();
 
-        // Gravar na sessão que o utilizador está logado
         $_SESSION['user_id'] = $user['id'];
         $_SESSION['username'] = $user['username'];
         $_SESSION['nome'] = $user['nome'];
 
-        // Redirecionar para área privada (exemplo)
         header('Location: dashboard.php');
         exit;
     } else {
@@ -38,10 +35,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 } else {
     if (isset($_SESSION['user_id'])) {
         echo "Bem-vindo de volta, " . htmlspecialchars($_SESSION['nome']) . "!";
-        // Aqui podes colocar o conteúdo da página inicial do utilizador logado
     } else {
         echo "Nenhum dado POST recebido. Por favor, faça login.";
-        // Aqui podes mostrar o formulário de login (ou redirecionar para a página de login)
     }
 }
 ?>
