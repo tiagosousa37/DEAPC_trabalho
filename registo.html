@@ -1,21 +1,32 @@
 <!DOCTYPE html>
 <html>
-<link rel="stylesheet" href="styles/registo.css">
+<head>
+  <title>Registar - Reservas Online</title>
+  <link rel="stylesheet" href="styles/registo.css">
+</head>
 <body>
-<img src="images/LOGO.png" alt="Sistema de Reservas Online" width="180" height="100">
-<h1>Reservas Online</h1>
-<h2>REGISTO</h2>
 
-<form action="scripts/registo.php" method="POST">
-<label for="fname"> Nome:</label><br>
-  <input type="text" id="fname" name="fname"><br>
-  <label for="fname">Email:</label><br>
-  <input type="text" id="fname" name="fname"><br>
-  <label for="lname">Palavra Passe:</label><br>
-  <input type="text" id="lname" name="lname"><br><br>
-  <input type="submit" value="Criar conta">
-</form> 
-<p><a href="paginaInicial.html">Já tenho uma conta</a></p>
+  <div class="login-container">
+    <img src="images/LOGO.png" alt="Sistema de Reservas Online" width="180" height="100">
+    
+    <h1>Reservas Online</h1>
+    <h2>REGISTO</h2>
+
+    <form action="scripts/registo.php" method="POST">
+      <label for="nome">Nome:</label><br>
+      <input type="text" id="nome" name="nome" required placeholder="Seu nome"><br><br>
+
+      <label for="email">Email:</label><br>
+      <input type="email" id="email" name="email" required placeholder="seu@email.com"><br><br>
+
+      <label for="password">Palavra passe:</label><br>
+      <input type="password" id="password" name="password" required placeholder="********"><br><br>
+
+      <input type="submit" value="Criar conta">
+    </form>
+
+    <p>Já tem uma conta? <a href="paginaInicial.html">Iniciar sessão</a></p>
+  </div>
+
 </body>
 </html>
-

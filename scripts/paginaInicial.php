@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-$db = new SQLite3('reservasonline.db');
+$db = new SQLite3('BD.php');
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $username = $_POST['username'] ?? '';
