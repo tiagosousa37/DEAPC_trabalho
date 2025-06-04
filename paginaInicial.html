@@ -1,20 +1,29 @@
-<!Doctype html>
+<!DOCTYPE html>
 <html>
 <head>
-<title>	Sistemas de reservas online </title>
-<link rel="stylesheet" href="styles/paginaInicial.css">
+  <title>Sistemas de Reservas Online</title>
+  <link rel="stylesheet" href="styles/paginaInicial.css">
 </head>
 <body>
-<img src="images/LOGO.png" alt="Sistema de Reservas Online" width="180" height="100">
-<h1> Reservas Online </h1>
-<h2> LOGIN </h2>
-<form action="scripts/paginaInicial.php" method="POST">
-  <label for="email">Email:</label><br>
-  <input type="text" id="email" name="fname"><br>
-  <label for="PalavraPasse">Palavra passe:</label><br>
-  <input type="text" id="PalavraPasse" name="PalavraPasse"><br><br>
-  <input type="submit" value="Iniciar sessão">
-</form>  
-<p><a href="registo.html">Registar</a></p>
+
+  <div class="login-container">
+    <img src="images/LOGO.png" alt="Sistema de Reservas Online" width="180" height="100">
+    
+    <h1>Reservas Online</h1>
+    <h2>LOGIN</h2>
+
+    <form action="scripts/paginaInicial.php" method="POST">
+      <label for="username">Email:</label><br>
+      <input type="text" id="username" name="username" required placeholder="seu@email.com"><br><br>
+
+      <label for="password">Palavra passe:</label><br>
+      <input type="password" id="password" name="password" required placeholder="********"><br><br>
+
+      <input type="submit" value="Iniciar sessão">
+    </form>
+
+    <p>Não tem conta? <a href="registo.html">Registar</a></p>
+  </div>
+
 </body>
 </html>
