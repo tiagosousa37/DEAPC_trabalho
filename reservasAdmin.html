@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<html>
 <head>
   <title>Admin - Reservas</title>
   <link rel="stylesheet" href="styles/reservasAdmin.css">
@@ -6,7 +7,7 @@
 <body>
 
   <aside class="sidebar">
-    <img src="images/LOGO.png" alt="Sistema de Reservas Online" width="180" height="100">
+    <img src="images/LOGO.png" alt="Sistema de Reservas Online" width="180" height="auto">
     <nav>
       <ul>
         <li><a href="#">Dashboard</a></li>
@@ -57,7 +58,7 @@
             <td>Hotel Praia Sol</td>
             <td>05-04-2025</td>
             <td>10-04-2025</td>
-            <td><span class="status canceled">Cancelada</span></td>
+            <td><span class="status confirmed">Confirmada</span></td>
             <td>
               <button class="btn edit">Editar</button>
               <button class="btn delete">Eliminar</button>
@@ -81,7 +82,7 @@
             <td>Concerto Bad Bunny</td>
             <td>26-05-2026</td>
             <td>26-05-2026</td>
-            <td><span class="status confirmed">Confirmada</span></td>
+            <td><span class="status canceled">Cancelada</span></td>
             <td>
               <button class="btn edit">Editar</button>
               <button class="btn delete">Eliminar</button>
@@ -90,13 +91,26 @@
         </tbody>
       </table>
     </section>
+
+    <section class="form-bloqueio">
+      <h2>Bloquear Datas</h2>
+      <form id="reserva-form" action="scripts/reservasAdmin.php" method="POST">
+        <label for="data-entrada"><strong>Data de entrada:</strong></label>
+        <input type="date" id="data-entrada" name="data_entrada" required>
+
+        <label for="data-saida"><strong>Data de saída:</strong></label>
+        <input type="date" id="data-saida" name="data_saida" required>
+
+        <button type="submit" id="bloquear-btn">Bloquear</button>
+      </form>
+    </section>
+
   </main>
 
   <script>
     const dataInput = document.querySelector('#dataSelecionada');
     const listaReservas = document.querySelector('#listaReservas');
 
-    // Dados simulados das reservas
     const reservas = [
       { id: "#1001", cliente: "Ana Silva", servico: "Hotel Praia Sol", dataEntrada: "2025-04-05" },
       { id: "#1002", cliente: "Carlos Mendes", servico: "Voo Lisboa → Madrid", dataEntrada: "2025-03-20" },
@@ -125,27 +139,6 @@
       }
     });
   </script>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sistemas de Reservas Online</title>
-    <link rel="stylesheet" href="styles/reservasAdmin.css">
-</head>
-<body>
-    <header>
-        <h1>Reservas</h1>
-    </header>
-    <main>
-        <form id="reserva-form" action="scripts/reservasAdmin.php" method="POST">
-            <div class="form-group">
-                <label for="data-entrada"><strong>Data de entrada:</strong></label>
-                <input type="date" id="data-entrada" name="data-entrada" required>
-            </div>
-            <div class="form-group">
-                <label for="data-saida"><strong>Data de saída:</strong></label>
-                <input type="date" id="data-saida" name="data-saida" required>
-            </div>
-            <button type="submit" id="bloquear-btn">Bloquear</button>
-        </form>
-    </main>
+
 </body>
 </html>
