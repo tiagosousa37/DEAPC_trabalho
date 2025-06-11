@@ -1,5 +1,5 @@
 <?php
-$db = new SQLite3('reservasonline.db');
+$db = new SQLite3('BD.db');
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $user_id = $_POST['user_id'] ?? '';

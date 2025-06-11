@@ -1,5 +1,5 @@
 <?php
-$db = new SQLite3('reservas.db');
+$db = new SQLite3('BD.db');
 
 $results = $db->query('SELECT username, ultimo_acesso FROM utilizadores ORDER BY ultimo_acesso DESC');
 

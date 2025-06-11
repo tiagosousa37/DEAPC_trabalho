@@ -1,7 +1,7 @@
 <?php
 header('Content-Type: application/json');
 
-$db = new SQLite3(__DIR__ . '/reservasonline.db');
+$db = new SQLite3(__DIR__ . '/BD.db');
 
 $tipo = $_GET['tipo'] ?? '';
 $continente = $_GET['continente'] ?? '';

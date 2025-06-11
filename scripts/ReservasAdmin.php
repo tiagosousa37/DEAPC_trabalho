@@ -1,5 +1,5 @@
 <?php
-$db = new SQLite3(__DIR__ . '/reservasonline.db');
+$db = new SQLite3(__DIR__ . '/BD.db');
 
 $query = "SELECT r.id, c.nome AS cliente, r.tipo_servico, r.data_entrada, r.data_saida, r.estado 
           FROM reservas r
