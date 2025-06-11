@@ -24,7 +24,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         die("<p style='color:red;'>Erro: Nome de utilizador ou email já existente.</p>");
     }
 
-    $stmt = $db->prepare("INSERT INTO users (nome, email, telefone, username, password, tipo) VALUES (:nome, :email, :telefone, :username, :password, 'user')");
+    $stmt = $db->prepare("INSERT INTO users (nome, email, password, tipo) VALUES (:nome, :email, :password, 'user')");
     $stmt->bindValue(':nome', $nome, SQLITE3_TEXT);
     $stmt->bindValue(':email', $email, SQLITE3_TEXT);
     $stmt->bindValue(':password', password_hash($password, PASSWORD_DEFAULT), SQLITE3_TEXT);
