@@ -1,41 +1,44 @@
-<?php
+k<?php
 session_start();
+
+ini_set('display_errors', 1);
+error_reporting(E_ALL);
+
 $db = new SQLite3('BD.db');
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $nome = $_POST['nome'] ?? '';
-    $email = $_POST['email'] ?? '';
-    $password = $_POST['password'] ?? '';
+echo "<pre>";
+echo "Método: " . $_SERVER["REQUEST_METHOD"] . "\n";
+print_r($_POST);
+echo "</pre>";
 
-    echo "<pre>Dados recebidos:\n";
-    print_r($_POST);
-    echo "</pre>";
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    $email = trim($_POST['email'] ?? '');
+    $password = trim($_POST['password'] ?? '');
 
-    if (empty($nome) || empty($email) || empty($password)) {
-        die("<p style='color:red;'>Por favor, preencha todos os campos.</p>");
+    if (empty($email) || empty($password)) {
+        die("⚠️ Preencha todos os campos.");
     }
 
-    $stmt = $db->prepare("SELECT id FROM users WHERE username = :username OR email = :email");
-    $stmt->bindValue(':username', $username, SQLITE3_TEXT);
+    $stmt = $db->prepare("SELECT * FROM login WHERE email = :email");
     $stmt->bindValue(':email', $email, SQLITE3_TEXT);
     $result = $stmt->execute();
+    $user = $result->fetchArray(SQLITE3_ASSOC);
 
-    if ($user = $result->fetchArray(SQLITE3_ASSOC)) {
-        die("<p style='color:red;'>Erro: Nome de utilizador ou email já existente.</p>");
+    if (!$user) {
+    die("⚠️ Utilizador não encontrado na base de dados.");
     }
 
-    $stmt = $db->prepare("INSERT INTO users (nome, email, password, tipo) VALUES (:nome, :email, :password, 'user')");
-    $stmt->bindValue(':nome', $nome, SQLITE3_TEXT);
-    $stmt->bindValue(':email', $email, SQLITE3_TEXT);
-    $stmt->bindValue(':password', password_hash($password, PASSWORD_DEFAULT), SQLITE3_TEXT);
 
-    if ($stmt->execute()) {
-        echo "<p style='color:green;'>✅ Registo efetuado com sucesso!</p>";
-        echo "<p>Bem-vindo(a), " . htmlspecialchars($nome) . ".</p>";
+    if ($user && password_verify($password, $user['password'])) {
+        $_SESSION['user_id'] = $user['id'];
+        $_SESSION['email'] = $user['email'];
+
+        header("Location: ../HomeUser.html");
+        exit;
     } else {
-        echo "<p style='color:red;'>❌ Erro ao registar. Tente novamente.</p>";
+        echo "❌ Email ou palavra-passe incorretos.";
     }
 } else {
-    die("<p>Acesso inválido. Por favor, use o formulário de registo.</p>");
+    echo "Acesso inválido.";
 }
 ?>

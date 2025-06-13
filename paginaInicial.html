@@ -5,21 +5,20 @@
   <link rel="stylesheet" href="styles/paginaInicial.css">
 </head>
 <body>
-
   <div class="login-container">
     <img src="images/LOGO.png" alt="Sistema de Reservas Online" width="180" height="100">
-    
+
     <h1>Reservas Online</h1>
     <h2>LOGIN</h2>
 
     <form action="scripts/paginaInicial.php" method="POST">
-      <label for="username">Email:</label><br>
-      <input type="text" id="username" name="username" required placeholder="seu@email.com"><br><br>
+        <label for="email">Email:</label><br>
+        <input type="text" id="email" name="email" required><br><br>
 
-      <label for="password">Palavra passe:</label><br>
-      <input type="password" id="password" name="password" required placeholder="********"><br><br>
+        <label for="password">Palavra passe:</label><br>
+        <input type="password" id="password" name="password" required><br><br>
 
-      <input type="submit" value="Iniciar sessão">
+        <input type="submit" value="Iniciar sessão">
     </form>
 
     <p>Não tem conta? <a href="registo.html">Registar</a></p>
