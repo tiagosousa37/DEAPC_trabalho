@@ -1,7 +1,7 @@
 <?php
-header('Content-Type: application/json');
-
-$db = new SQLite3(__DIR__ . '/BD.db');
+ini_set('display_errors', 1);
+error_reporting(E_ALL);
+$db = new SQLite3('BD.db');
 
 $tipo = $_GET['tipo'] ?? '';
 $continente = $_GET['continente'] ?? '';
