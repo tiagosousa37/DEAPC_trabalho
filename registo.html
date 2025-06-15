@@ -1,11 +1,10 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt">
 <head>
   <meta charset="UTF-8">
   <title>Registar - Reservas Online</title>
   <link rel="stylesheet" href="styles/registo.css">
 </head>
-<body>
 <body>
 
   <div class="login-container">
@@ -13,24 +12,6 @@
 
     <h1>Reservas Online</h1>
     <h2>REGISTO</h2>
-
-    <?php if (isset($_SESSION['error'])): ?>
-        <div class="alert error"><?= $_SESSION['error'] ?></div>
-        <?php unset($_SESSION['error']); ?>
-    <?php endif; ?>
-
-    <?php if (isset($_SESSION['success'])): ?>
-        <div class="alert success"><?= $_SESSION['success'] ?></div>
-        <?php unset($_SESSION['success']); ?>
-    <?php endif; ?>    <?php if (isset($_SESSION['error'])): ?>
-        <div class="alert error"><?= $_SESSION['error'] ?></div>
-        <?php unset($_SESSION['error']); ?>
-    <?php endif; ?>
-
-    <?php if (isset($_SESSION['success'])): ?>
-        <div class="alert success"><?= $_SESSION['success'] ?></div>
-        <?php unset($_SESSION['success']); ?>
-    <?php endif; ?>
 
     <form action="scripts/registo.php" method="POST">
       <label for="email">Email:</label><br>
