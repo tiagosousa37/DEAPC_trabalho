@@ -24,6 +24,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if ($result->fetchArray(SQLITE3_ASSOC)) {
         die("<p style='color:red;'>⚠ Email já está registado. Tente outro.</p>");
+        die("<p style='color:red;'>⚠️ Email já está registado. Tente outro.</p>");
     }
 
     // Inserir novo utilizador
