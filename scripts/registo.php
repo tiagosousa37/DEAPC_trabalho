@@ -23,11 +23,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $result = $stmt->execute();
 
     if ($result->fetchArray(SQLITE3_ASSOC)) {
-<<<<<<< HEAD
         die("<p style='color:red;'>⚠ Email já está registado. Tente outro.</p>");
-=======
-        die("<p style='color:red;'>⚠️ Email já está registado. Tente outro.</p>");
->>>>>>> a08aeae5f70d5ec5c9fa466e217cd22aa77f93a2
     }
 
     // Inserir novo utilizador
@@ -42,10 +38,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         die("<p style='color:red;'>❌ Erro ao registar. Tente novamente mais tarde.</p>");
     }
 } else {
-<<<<<<< HEAD
 	$db->close();
-=======
->>>>>>> a08aeae5f70d5ec5c9fa466e217cd22aa77f93a2
     die("<p>Acesso inválido. Use o formulário de registo.</p>");
 }
 ?>

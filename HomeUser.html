@@ -26,13 +26,13 @@
 
         <section class="filtros">
             <h3>Filtros</h3>
-             <form action="scripts/filtrarServicos.php" method="POST">
-		<label for="tipo-evento">Tipo de evento:</label>
-		<select id="tipo-evento">
-		<option value="">Todos</option>
-		<option value="voos">Voos</option>
-		<option value="concertos">Concertos</option>
-		<option value="hoteis">Hotéis</option>
+             <form action="scripts/HomeUser.php" method="GET">
+		<label for="tipo">Tipo de evento:</label>
+		<select id="tipo" name="continente">
+		  <option value="">Todos</option>
+		  <option value="voos">Voos</option>
+		  <option value="concertos">Concertos</option>
+		  <option value="hoteis">Hotéis</option>
 	</select>
 
             <label for="continente">Continente:</label>
@@ -42,11 +42,12 @@
                 <option value="america">América</option>
                 <option value="asia">Ásia</option>
                 <option value="africa">África</option>
-		<option value="africa">Oceânia</option>
+		<option value="oceania">Oceânia</option>
             </select>
 
             <label for="data">Data da viagem:</label>
-            <input type="date" id="data">
+            <input type="date" id="data" name="data">
+            <button type="submit">Filtrar</button>
         </section>
 
         <section class="tendências">
