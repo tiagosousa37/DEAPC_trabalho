@@ -1,44 +1,43 @@
-k<?php
+<?php
 session_start();
 
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
+// Conectar à base de dados SQLite
 $db = new SQLite3('BD.db');
 
-echo "<pre>";
-echo "Método: " . $_SERVER["REQUEST_METHOD"] . "\n";
-print_r($_POST);
-echo "</pre>";
-
-if ($_SERVER["REQUEST_METHOD"] === "POST") {
+// Verificar se o pedido é POST
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $email = trim($_POST['email'] ?? '');
     $password = trim($_POST['password'] ?? '');
 
+    // Verificar se os campos estão preenchidos
     if (empty($email) || empty($password)) {
-        die("⚠️ Preencha todos os campos.");
+        die("<p style='color:red;'>❌ Por favor, preencha todos os campos.</p>");
     }
 
-    $stmt = $db->prepare("SELECT * FROM login WHERE email = :email");
+    // Verificar se o email já está registado
+    $stmt = $db->prepare("SELECT id FROM registo WHERE email = :email");
     $stmt->bindValue(':email', $email, SQLITE3_TEXT);
     $result = $stmt->execute();
-    $user = $result->fetchArray(SQLITE3_ASSOC);
 
-    if (!$user) {
-    die("⚠️ Utilizador não encontrado na base de dados.");
+    if ($result->fetchArray(SQLITE3_ASSOC)) {
+        die("<p style='color:red;'>⚠️ Email já está registado. Tente outro.</p>");
     }
 
+    // Inserir novo utilizador
+    $stmt = $db->prepare("INSERT INTO registo (email, password) VALUES (:email, :password)");
+    $stmt->bindValue(':email', $email, SQLITE3_TEXT);
+    $stmt->bindValue(':password', password_hash($password, PASSWORD_DEFAULT), SQLITE3_TEXT);
 
-    if ($user && password_verify($password, $user['password'])) {
-        $_SESSION['user_id'] = $user['id'];
-        $_SESSION['email'] = $user['email'];
-
-        header("Location: ../HomeUser.html");
+    if ($stmt->execute()) {
+        header("Location: ../paginaInicial.html");
         exit;
     } else {
-        echo "❌ Email ou palavra-passe incorretos.";
+        die("<p style='color:red;'>❌ Erro ao registar. Tente novamente mais tarde.</p>");
     }
 } else {
-    echo "Acesso inválido.";
+    die("<p>Acesso inválido. Use o formulário de registo.</p>");
 }
 ?>
