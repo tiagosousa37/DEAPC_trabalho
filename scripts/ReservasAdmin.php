@@ -1,67 +1,35 @@
 <?php
-$db = new SQLite3(__DIR__ . '/BD.db');
+session_start();
 
-$query = "SELECT r.id, c.nome AS cliente, r.tipo_servico, r.data_entrada, r.data_saida, r.estado 
-          FROM reservas r
-          JOIN clientes c ON r.cliente_id = c.id
-          ORDER BY r.data_entrada DESC";
+ini_set('display_errors', 1);
+error_reporting(E_ALL);
 
-$result = $db->query($query);
+// Ligação à base de dados SQLite
+$db = new SQLite3('BD.db'); // Ajusta o caminho conforme a estrutura
 
-echo <<<HTML
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Admin - Reservas</title>
-    <style>
-        table { border-collapse: collapse; width: 100%; }
-        th, td { padding: 8px 12px; border: 1px solid #ccc; }
-        th { background-color: #eee; }
-        .status-confirmed { color: green; }
-        .status-pending { color: orange; }
-        .status-canceled { color: red; }
-    </style>
-</head>
-<body>
-    <h1>Gestão de Reservas</h1>
-    <table>
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Cliente</th>
-                <th>Tipo de Serviço</th>
-                <th>Data Entrada</th>
-                <th>Data Saída</th>
-                <th>Estado</th>
-            </tr>
-        </thead>
-        <tbody>
-HTML;
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $entrada = trim($_POST['data_entrada'] ?? '');
+    $saida   = trim($_POST['data_saida'] ?? '');
 
-while ($row = $result->fetchArray(SQLITE3_ASSOC)) {
-    $statusClass = '';
-    switch (strtolower($row['estado'])) {
-        case 'confirmada': $statusClass = 'status-confirmed'; break;
-        case 'pendente': $statusClass = 'status-pending'; break;
-        case 'cancelada': $statusClass = 'status-canceled'; break;
+    if (empty($entrada) || empty($saida)) {
+        die("<p style='color:red;'>❌ Preencha ambas as datas.</p>");
     }
-    echo "<tr>
-        <td>{$row['id']}</td>
-        <td>{$row['cliente']}</td>
-        <td>{$row['tipo_servico']}</td>
-        <td>{$row['data_entrada']}</td>
-        <td>{$row['data_saida']}</td>
-        <td class=\"$statusClass\">{$row['estado']}</td>
-    </tr>";
+
+    if ($entrada > $saida) {
+        die("<p style='color:red;'>⚠️ A data de entrada não pode ser depois da saída.</p>");
+    }
+
+    $stmt = $db->prepare("INSERT INTO bloqueios (data_entrada, data_saida) VALUES (:entrada, :saida)");
+    $stmt->bindValue(':entrada', $entrada, SQLITE3_TEXT);
+    $stmt->bindValue(':saida', $saida, SQLITE3_TEXT);
+
+    if ($stmt->execute()) {
+        header("Location: ../reservasAdmin.html");
+        exit;
+    } else {
+        die("<p style='color:red;'>❌ Erro ao guardar as datas.</p>");
+    }
+} else {
+    die("<p>Acesso inválido.</p>");
 }
-
-echo <<<HTML
-        </tbody>
-    </table>
-</body>
-</html>
-HTML;
-
-$db->close();
 ?>
-
