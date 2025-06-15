@@ -1,15 +1,19 @@
 <!DOCTYPE html>
-<html>
-<link rel="stylesheet" href="styles/ReservasUser.css">
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <title>Reservas Online</title>
+  <link rel="stylesheet" href="styles/ReservasUser.css">
+</head>
 <body>
 
 <h1>Reservas Online</h1>
 <h2>Informações da Reserva</h2>
-  <form action="scripts/ReservasUser.php" method="POST">
+<form action="scripts/ReservasUser.php" method="POST">
   <p><strong>Local:</strong> Hotel Praia do Sol</p>
   <p><strong>Classificação:</strong> ★★★★☆</p>
-  <p><strong>Data de entrada:</strong> <input type="date"></p>
-  <p><strong>Data de saída:</strong> <input type="date"></p>
+  <p><strong>Data de entrada:</strong> <input type="date" name="data_entrada"></p>
+  <p><strong>Data de saída:</strong> <input type="date" name="data_saida"></p>
 
   <h2>Dados do Cliente</h2>
   <table border="1" cellpadding="5">
@@ -20,10 +24,10 @@
       <th>Nº de Pessoas</th>
     </tr>
     <tr>
-      <td><input type="text" placeholder="Seu nome"></td>
-      <td><input type="email" placeholder="Seu email"></td>
-      <td><input type="tel" placeholder="Seu telefone"></td>
-      <td><input type="number" min="1" value="1"></td>
+      <td><input type="text" name="nome" placeholder="Seu nome"></td>
+      <td><input type="email" name="email" placeholder="Seu email"></td>
+      <td><input type="tel" name="telefone" placeholder="Seu telefone"></td>
+      <td><input type="number" name="pessoas" min="1" value="1"></td>
     </tr>
   </table>
 
@@ -31,9 +35,8 @@
   <input type="radio" name="pagamento" value="mbway"> MB WAY<br>
   <input type="radio" name="pagamento" value="mb"> Multibanco<br><br>
 
-  <button>Finalizar Reserva</button>
+  <button type="submit">Finalizar Reserva</button>
+</form>
 
 </body>
 </html>
-
-
