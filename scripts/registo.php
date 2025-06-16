@@ -9,11 +9,12 @@ $db = new SQLite3('BD.db');
 
 // Verificar se o pedido é POST
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $nome = trim($_POST['nome'] ?? '');
     $email = trim($_POST['email'] ?? '');
     $password = trim($_POST['password'] ?? '');
 
     // Verificar se os campos estão preenchidos
-    if (empty($email) || empty($password)) {
+    if (empty($nome) || empty($email) || empty($password)) {
         die("<p style='color:red;'>❌ Por favor, preencha todos os campos.</p>");
     }
 
@@ -23,12 +24,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $result = $stmt->execute();
 
     if ($result->fetchArray(SQLITE3_ASSOC)) {
-        die("<p style='color:red;'>⚠ Email já está registado. Tente outro.</p>");
         die("<p style='color:red;'>⚠️ Email já está registado. Tente outro.</p>");
     }
 
-    // Inserir novo utilizador
-    $stmt = $db->prepare("INSERT INTO registo (email, password) VALUES (:email, :password)");
+    // Inserir novo utilizador com nome
+    $stmt = $db->prepare("INSERT INTO registo (nome, email, password) VALUES (:nome, :email, :password)");
+    $stmt->bindValue(':nome', $nome, SQLITE3_TEXT);
     $stmt->bindValue(':email', $email, SQLITE3_TEXT);
     $stmt->bindValue(':password', password_hash($password, PASSWORD_DEFAULT), SQLITE3_TEXT);
 
@@ -39,7 +40,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         die("<p style='color:red;'>❌ Erro ao registar. Tente novamente mais tarde.</p>");
     }
 } else {
-	$db->close();
+    $db->close();
     die("<p>Acesso inválido. Use o formulário de registo.</p>");
 }
 ?>
+
