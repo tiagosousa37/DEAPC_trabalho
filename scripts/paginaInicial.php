@@ -4,7 +4,7 @@ session_start();
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
-// Conectar à base de dados
+// Conectar à base de dados SQLite
 $db = new SQLite3('BD.db');
 
 // Verificar se o pedido é POST
@@ -24,12 +24,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Verificar se utilizador existe e se a password está correta
     if ($user && password_verify($password, $user['password'])) {
-        // Guardar info na sessão se necessário
+        // Guardar info na sessão
         $_SESSION['user_id'] = $user['id'];
         $_SESSION['email'] = $user['email'];
+        $_SESSION['role'] = $user['role'];  // <-- papel do utilizador
 
-        // Redirecionar para a página do utilizador
-        header("Location: ../HomeUser.html");
+        // Redirecionar conforme o papel
+        if ($user['role'] === 'admin') {
+            header("Location: ../HomeAdmin.html");
+        } else {
+            header("Location: ../HomeUser.html");
+        }
         exit;
     } else {
         die("<p style='color:red;'>❌ Email ou palavra-passe incorretos.</p>");
