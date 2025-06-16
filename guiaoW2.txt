@@ -10,11 +10,11 @@ ADM01 - Tipo de serviço, nome e descrição - Validar os dados inseridos e cria
 ADM02 - Gerir disponibilidade - Data e disponibilidade - Atualizar disponibilidade - Armazenar na área da dispobilidade dos serviços;
 
 
-4) Nome - User story - Descrição
+4) Nome - Descrição - User story
 
-paginaInicial.php - Iniciar sessão - Processa os dados de login, verificando se o email já existe;
-registo.php - Criar uma conta - Recebe os dados do formulário, verifica se o email existe e encripta a palavra-passe;
-HomeUser.php - Visualizar os diferentes serviços - Filtra e retorna serviços com base em localização, datas e tipo de serviço;
-ReservasUser.php - Efetuar uma reserva - Cria uma nova reserva e atualiza a disponibilidade do serviço;
-HomeAdmin.php -
-ReservasAdmin.php -
+registo.php - Recebe a informação do novo utilizador, verifica se o Username já existe, e caso não exista, acrescenta o novo utilizador ao registo - USR1;
+login.php - Processa o login de utilizadores. Verifica as credenciais e inicia uma sessão se forem válidas - USR2;
+HomeAdmin.php - Verifica se há uma sessão ativa do administrador. Caso sim, busca e mostra os dados estatísticos (reservas, utilizadores ativos, destinos mais populares) - USR3;
+Reservas.php - Permite ao administrador listar, editar ou cancelar reservas existentes no sistema - USR4;
+ultimosAcessos.php - Apresenta um histórico de logins e atividades dos utilizadores para fins de auditoria - USR5;
+
