@@ -18,15 +18,15 @@ $aeroportos = [
     'Nova Iorque', 'São Paulo', 'Tóquio', 'Cidade do México', 'Johannesburg'
 ];
 
-$inicio = strtotime('2025-01-01');
-$fim = strtotime('2026-12-31');
+$inicio = strtotime('01-01-2025');
+$fim = strtotime('31-12-2026');
 
-$quantidade = 100;
+$quantidade = 1000;
 
 for ($i = 0; $i < $quantidade; $i++) {
     $tipo = $tipos[array_rand($tipos)];
     $continente = $continentes[array_rand($continentes)];
-    $data = date('Y-m-d', rand($inicio, $fim));
+    $data = date('d-m-Y', rand($inicio, $fim));
     if ($tipo === 'voos') {
     $titulo = "Voos para " . ucfirst($continente);
     } elseif ($tipo === 'concertos') {

@@ -13,7 +13,7 @@ $query = "SELECT * FROM servicos WHERE 1=1";
 if ($tipo !== '') $query .= " AND tipo = :tipo";
 if ($continente !== '') $query .= " AND continente = :continente";
 if ($data !== '') $query .= " AND data >= :data";
-
+$query .= " ORDER BY substr(data, 7, 4) || '-' || substr(data, 4, 2) || '-' || substr(data, 1, 2) ASC";
 $stmt = $db->prepare($query);
 if ($tipo !== '') $stmt->bindValue(':tipo', $tipo, SQLITE3_TEXT);
 if ($continente !== '') $stmt->bindValue(':continente', $continente, SQLITE3_TEXT);
