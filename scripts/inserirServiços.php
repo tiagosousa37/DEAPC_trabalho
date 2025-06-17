@@ -39,8 +39,8 @@ for ($i = 0; $i < $quantidade; $i++) {
     // Título por tipo
     $titulo = match($tipo) {
         'voos' => "Voos para " . ucfirst($continente),
-        'concertos' => "Concerto em " . ucfirst($continente),
-        'hoteis' => "Hotel em " . ucfirst($continente),
+        'concertos' => "Concerto na " . ucfirst($continente),
+        'hoteis' => "Hotel na " . ucfirst($continente),
     };
 
     // Preço aleatório

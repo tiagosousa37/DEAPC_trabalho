@@ -27,7 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Verificar se utilizador existe e se a password está correta
     if ($user && password_verify($password, $user['password'])) {
         // Guardar info na sessão
-        $_SESSION['user_id'] = $user['id'];
+        $_SESSION['user_id'] = $user['ID'];
         $_SESSION['email'] = $user['email'];
         $_SESSION['role'] = $user['role'];  // papel do utilizador
 
