@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>Área do Utilizador - ReservasOnline</title>
     <link rel="stylesheet" href="styles/HomeUser.css">
+    <script src="scripts/HomeUser.js" defer></script>
 </head>
 <body>
     <header>
@@ -17,54 +18,34 @@
     </header>
 
     <main>
-        <form action="scripts/HomeUser.php" method="POST">
-        <section class="barra-pesquisa">
-            <input type="text" placeholder="Pesquisar destinos..." id="campo-pesquisa">
-            <button>🔍</button>
-        </section>
-
+        <form action="" method="GET" class="filtros-form">
         <section class="filtros">
             <h3>Filtros</h3>
-             <form action="scripts/HomeUser.php" method="GET">
-		<label for="tipo">Tipo de evento:</label>
-		<select id="tipo" name="continente">
-		  <option value="">Todos</option>
-		  <option value="voos">Voos</option>
-		  <option value="concertos">Concertos</option>
-		  <option value="hoteis">Hotéis</option>
-	</select>
+                <label for="tipo">Tipo de evento:</label>
+                <select id="tipo" name="tipo">
+                  <option value="">Todos</option>
+                  <option value="voos">Voos</option>
+                  <option value="concertos">Concertos</option>
+                  <option value="hoteis">Hotéis</option>
+        </select>
 
             <label for="continente">Continente:</label>
-            <select id="continente">
+            <select id="continente" name="continente">
                 <option value="">Todos</option>
                 <option value="europa">Europa</option>
                 <option value="america">América</option>
                 <option value="asia">Ásia</option>
                 <option value="africa">África</option>
-		<option value="oceania">Oceânia</option>
+                <option value="oceania">Oceânia</option>
             </select>
 
             <label for="data">Data da viagem:</label>
             <input type="date" id="data" name="data">
             <button type="submit">Filtrar</button>
-        </section>
-
-        <section class="tendências">
-    <h3>Tendências:</h3>
-    <div class="tendencia-card">
-        <div class="card" style="background-image: url('images/maldivas.jpg');">
-            <span>Maldivas – 7 noites com tudo incluído</span>
-        </div>
-        <div class="card" style="background-image: url('images/suica.jpg');">
-            <span>Suíça – Férias na neve em janeiro</span>
-        </div>
-        <div class="card" style="background-image: url('images/bad-bunny.jpg');">
-            <span>Concerto Bad Bunny – Dias 26 e 27 de maio de 2026</span>
-        </div>
-        <div class="card" style="background-image: url('images/swiss.jpg');">
-            <span>Voo Porto  ->  Zurique - 12h20 -> 15h50</span>
-        </div>
-    </div>
+        </section>                                                                                                                             </form>
+        <section class="tendencias">
+    <h3>Serviços disponíveis:</h3>
+    <div class="tendencia-card" id="tendenciasContainer">    </div>
 </section>
     </main>
 

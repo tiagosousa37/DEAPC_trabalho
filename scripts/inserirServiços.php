@@ -2,34 +2,63 @@
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
-// Liga à base de dados
 $db = new SQLite3('BD.db');
 
-// Listas possíveis
 $tipos = ['voos', 'concertos', 'hoteis'];
 $continentes = ['europa', 'america', 'asia', 'africa', 'oceania'];
+$imagens = [
+    'voos' => 'images/swiss.jpg',
+    'concertos' => 'images/concertos.jpeg',
+    'hoteis' => 'images/maldivas.jpg'
+];
 
-// Datas entre 2025-01-01 e 2026-12-31
+// Exemplo de aeroportos para partidas e destinos (pode expandir ou melhorar)
+$aeroportos = [
+    'Lisboa', 'Porto', 'Madrid', 'Paris', 'Londres',
+    'Nova Iorque', 'São Paulo', 'Tóquio', 'Cidade do México', 'Johannesburg'
+];
+
 $inicio = strtotime('2025-01-01');
 $fim = strtotime('2026-12-31');
 
-// Quantidade de registos a inserir (AJUSTA aqui se necessário!)
 $quantidade = 100;
 
-// Loop de inserção
 for ($i = 0; $i < $quantidade; $i++) {
     $tipo = $tipos[array_rand($tipos)];
     $continente = $continentes[array_rand($continentes)];
     $data = date('Y-m-d', rand($inicio, $fim));
-    $titulo = ucfirst($tipo) . " em " . ucfirst($continente); // Título gerado
+    if ($tipo === 'voos') {
+    $titulo = "Voos para " . ucfirst($continente);
+    } elseif ($tipo === 'concertos') {
+    $titulo = "Concerto em " . ucfirst($continente);
+    } elseif ($tipo === 'hoteis') {
+    $titulo = "Hotel em " . ucfirst($continente);
+    }
 
-    // Preparar e executar o INSERT corretamente
-    $stmt = $db->prepare("INSERT INTO servicos (tipo, continente, data, titulo) 
-                          VALUES (:tipo, :continente, :data, :titulo)");
+    $imagem = $imagens[$tipo];
+
+    if ($tipo === 'voos') {
+        // Escolher partida e destino aleatoriamente, evitando que sejam iguais
+        do {
+            $partida = $aeroportos[array_rand($aeroportos)];
+            $destino = $aeroportos[array_rand($aeroportos)];
+        } while ($partida === $destino);
+
+        $stmt = $db->prepare("INSERT INTO servicos (tipo, continente, data, titulo, imagem, partida, destino)
+                              VALUES (:tipo, :continente, :data, :titulo, :imagem, :partida, :destino)");
+        $stmt->bindValue(':partida', $partida, SQLITE3_TEXT);
+        $stmt->bindValue(':destino', $destino, SQLITE3_TEXT);
+    } else {
+        $stmt = $db->prepare("INSERT INTO servicos (tipo, continente, data, titulo, imagem)
+                              VALUES (:tipo, :continente, :data, :titulo, :imagem)");
+    }
+
     $stmt->bindValue(':tipo', $tipo, SQLITE3_TEXT);
     $stmt->bindValue(':continente', $continente, SQLITE3_TEXT);
     $stmt->bindValue(':data', $data, SQLITE3_TEXT);
     $stmt->bindValue(':titulo', $titulo, SQLITE3_TEXT);
+    $stmt->bindValue(':imagem', $imagem, SQLITE3_TEXT);
+
     $stmt->execute();
 }
 

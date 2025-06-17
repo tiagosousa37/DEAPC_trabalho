@@ -9,10 +9,13 @@
 
 <h1>Reservas Online</h1>
 <h2>Informações da Reserva</h2>
+
+<!-- Destino e imagem dinâmicos -->
+<p><strong>Destino selecionado:</strong> <span id="campo-destino"></span></p>
+<img id="imagem-preview" style="display: none; max-width: 300px; margin-bottom: 20px;" />
+
 <form action="scripts/ReservasUser.php" method="POST">
-  <p><strong>Local:</strong> Hotel Praia do Sol</p>
-  <p><strong>Classificação:</strong> ★★★★☆</p>
-  <p><strong>Data de entrada:</strong> <input type="date" name="data_entrada"></p>
+  <p><strong>Data de entrada:</strong> <input type="date" name="data_entrada" id="campo-data"></p>
   <p><strong>Data de saída:</strong> <input type="date" name="data_saida"></p>
 
   <h2>Dados do Cliente</h2>
@@ -38,5 +41,7 @@
   <button type="submit">Finalizar Reserva</button>
 </form>
 
+<script src="scripts/ReservasUser.js"></script>
 </body>
 </html>
+

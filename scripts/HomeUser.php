@@ -31,4 +31,3 @@ echo json_encode($servicos);
 
 $db->close();
 ?>
-
