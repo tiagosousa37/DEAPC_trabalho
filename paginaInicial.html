@@ -12,7 +12,7 @@
     <h1>Reservas Online</h1>
     <h2>LOGIN</h2>
 
-    <form action="scripts/paginaInicial.php" method="POST">
+    <form action="scripts/paginaInicial.php" method="POST" onsubmit="return validarLogin()">
         <label for="email">Email:</label><br>
         <input type="text" id="email" name="email" required><br><br>
 
@@ -24,6 +24,6 @@
 
     <p>Não tem conta? <a href="registo.html">Registar</a></p>
   </div>
-
+  <script src="scripts/validacaoLogin.js"></script>
 </body>
 </html>

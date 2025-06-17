@@ -13,7 +13,7 @@
     <h1>Reservas Online</h1>
     <h2>REGISTO</h2>
 
-    <form action="scripts/registo.php" method="POST">
+    <form action="scripts/registo.php" method="POST" onsubmit="return validarRegisto()">
 
       <label for="nome">Nome:</label><br>
       <input type="text" id="nome" name="nome" required placeholder="O seu nome"><br><br>
@@ -28,8 +28,8 @@
     </form>
 
     <p>Já tem uma conta? <a href="paginaInicial.html">Iniciar sessão</a></p>
+    <script src="scripts/validarRegisto.js"></script>
   </div>
-
 </body>
 </html>
 
