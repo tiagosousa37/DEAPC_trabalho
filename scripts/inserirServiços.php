@@ -2,27 +2,32 @@
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
-// Conecta ao banco de dados
 $db = new SQLite3('BD.db');
 
-// Dados possíveis
 $tipos = ['voos', 'concertos', 'hoteis'];
 $continentes = ['europa', 'america', 'asia', 'africa', 'oceania'];
+
 $imagens = [
     'voos' => 'images/swiss.jpg',
     'concertos' => 'images/concertos.jpeg',
     'hoteis' => 'images/maldivas.jpg'
 ];
-$aeroportos = [
-    'Lisboa', 'Porto', 'Madrid', 'Paris', 'Londres',
-    'Nova Iorque', 'São Paulo', 'Tóquio', 'Cidade do México', 'Johannesburg'
+
+// Aeroportos organizados por continente
+$aeroportosPorContinente = [
+    'europa' => ['Lisboa', 'Porto', 'Madrid', 'Paris', 'Londres', 'Berlim'],
+    'america' => ['Nova Iorque', 'São Paulo', 'Buenos Aires', 'Cidade do México', 'Toronto'],
+    'asia' => ['Tóquio', 'Pequim', 'Bangkok', 'Seul', 'Singapura'],
+    'africa' => ['Cairo', 'Casablanca', 'Johannesburg', 'Nairobi'],
+    'oceania' => ['Sydney', 'Melbourne', 'Auckland']
 ];
 
-// Período das datas
+// Juntar todos aeroportos numa só lista para partidas aleatórias
+$aeroportosTodos = array_merge(...array_values($aeroportosPorContinente));
+
 $inicio = strtotime('01-01-2025');
 $fim = strtotime('31-12-2026');
 
-// Quantidade de serviços a inserir
 $quantidade = 1000;
 
 for ($i = 0; $i < $quantidade; $i++) {
@@ -31,34 +36,30 @@ for ($i = 0; $i < $quantidade; $i++) {
     $data = date('d-m-Y', rand($inicio, $fim));
     $imagem = $imagens[$tipo];
 
-    // Gerar título
-    if ($tipo === 'voos') {
-        $titulo = "Voos para " . ucfirst($continente);
-    } elseif ($tipo === 'concertos') {
-        $titulo = "Concerto em " . ucfirst($continente);
-    } elseif ($tipo === 'hoteis') {
-        $titulo = "Hotel em " . ucfirst($continente);
-    }
+    // Título por tipo
+    $titulo = match($tipo) {
+        'voos' => "Voos para " . ucfirst($continente),
+        'concertos' => "Concerto em " . ucfirst($continente),
+        'hoteis' => "Hotel em " . ucfirst($continente),
+    };
 
-    // Gerar preço aleatório
-    switch ($tipo) {
-        case 'voos':
-            $preco = rand(100, 1500); // €100 - €1500
-            break;
-        case 'concertos':
-            $preco = rand(30, 300); // €30 - €300
-            break;
-        case 'hoteis':
-            $preco = rand(80, 500); // €80 - €500
-            break;
-    }
+    // Preço aleatório
+    $preco = match($tipo) {
+        'voos' => rand(100, 1500),
+        'concertos' => rand(30, 300),
+        'hoteis' => rand(80, 500),
+    };
 
-    // Se for voo, incluir partida e destino
+    // Inserção diferenciada se for voo
     if ($tipo === 'voos') {
+        // Partida aleatória de qualquer lugar
+        $partida = $aeroportosTodos[array_rand($aeroportosTodos)];
+        // Destino dentro do continente escolhido
+        $destinosPossiveis = $aeroportosPorContinente[$continente];
+
         do {
-            $partida = $aeroportos[array_rand($aeroportos)];
-            $destino = $aeroportos[array_rand($aeroportos)];
-        } while ($partida === $destino);
+            $destino = $destinosPossiveis[array_rand($destinosPossiveis)];
+        } while ($destino === $partida); // evita partida igual ao destino
 
         $stmt = $db->prepare("INSERT INTO servicos (tipo, continente, data, titulo, imagem, partida, destino, preco)
                               VALUES (:tipo, :continente, :data, :titulo, :imagem, :partida, :destino, :preco)");
@@ -69,7 +70,6 @@ for ($i = 0; $i < $quantidade; $i++) {
                               VALUES (:tipo, :continente, :data, :titulo, :imagem, :preco)");
     }
 
-    // Bind comum a todos
     $stmt->bindValue(':tipo', $tipo, SQLITE3_TEXT);
     $stmt->bindValue(':continente', $continente, SQLITE3_TEXT);
     $stmt->bindValue(':data', $data, SQLITE3_TEXT);
