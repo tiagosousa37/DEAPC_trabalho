@@ -1,19 +1,23 @@
 <?php
-$db = new SQLite3('BD.db');
 
-$results = $db->query('SELECT username, ultimo_acesso FROM utilizadores ORDER BY ultimo_acesso DESC');
+date_default_timezone_set('Europe/Lisbon');
 
-echo "<h1>Últimos Acessos</h1>";
-echo "<table border='1' cellpadding='5'>";
-echo "<tr><th>Username</th><th>Último Acesso</th></tr>";
-
-while ($row = $results->fetchArray(SQLITE3_ASSOC)) {
-    echo "<tr>";
-    echo "<td>" . htmlspecialchars($row['username']) . "</td>";
-    echo "<td>" . htmlspecialchars($row['ultimo_acesso'] ?? 'Nunca') . "</td>";
-    echo "</tr>";
+if (!isset($_SESSION)) {
+    session_start();
 }
 
-echo "</table>";
-?>
+if (!isset($_SESSION['email'])) {
+    exit; // Só regista acessos se o utilizador estiver autenticado
+}
 
+$db = new SQLite3('BD.db');
+
+$email = $_SESSION['email'];
+$dataHora = date('d-m-Y H:i:s');
+
+// Registar o acesso
+$stmt = $db->prepare("INSERT INTO ultimos_acessos (email, data_hora) VALUES (:email, :dataHora)");
+$stmt->bindValue(':email', $email, SQLITE3_TEXT);
+$stmt->bindValue(':dataHora', $dataHora, SQLITE3_TEXT);
+$stmt->execute();
+?>

@@ -1,6 +1,8 @@
 <?php
 session_start();
 
+date_default_timezone_set('Europe/Lisbon');
+
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
@@ -27,7 +29,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Guardar info na sessão
         $_SESSION['user_id'] = $user['id'];
         $_SESSION['email'] = $user['email'];
-        $_SESSION['role'] = $user['role'];  // <-- papel do utilizador
+        $_SESSION['role'] = $user['role'];  // papel do utilizador
+
+        // Registar último acesso
+        $dataHora = date('d-m-Y H:i:s');
+        $stmt = $db->prepare("INSERT INTO ultimos_acessos (email, data_hora) VALUES (:email, :dataHora)");
+        $stmt->bindValue(':email', $email, SQLITE3_TEXT);
+        $stmt->bindValue(':dataHora', $dataHora, SQLITE3_TEXT);
+        $stmt->execute();
 
         // Redirecionar conforme o papel
         if ($user['role'] === 'admin') {
