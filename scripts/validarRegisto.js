@@ -8,13 +8,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
     let valid = true;
 
-    // Limpar estilos antigos
     [nome, email, password].forEach((el) => {
       el.style.border = "";
       el.style.backgroundColor = "";
     });
 
-    // Verificar campos obrigatórios
     if (nome.value.trim() === "") {
       nome.style.border = "2px solid red";
       nome.style.backgroundColor = "#ffe5e5";
@@ -35,7 +33,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     if (!valid) {
-      event.preventDefault(); // Impede envio do formulário
+      event.preventDefault();
     }
   });
 });

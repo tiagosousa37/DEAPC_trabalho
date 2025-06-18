@@ -6,8 +6,8 @@ document.addEventListener("DOMContentLoaded", function () {
   const imagem = params.get("imagem");
 
   if (titulo) {
-    document.getElementById("campo-destino").textContent = titulo; // mostrar no span
-    document.getElementById("campo-local").value = titulo; // colocar no hidden para envio
+    document.getElementById("campo-destino").textContent = titulo;
+    document.getElementById("campo-local").value = titulo;
   }
 
   if (data) document.getElementById("campo-data").value = data;

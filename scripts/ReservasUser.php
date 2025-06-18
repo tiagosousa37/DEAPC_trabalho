@@ -12,12 +12,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $local = $_POST['local'] ?? 'Desconhecido';
     $pagamento = $_POST['pagamento'] ?? 'MBWAY';
 
-    // Validar datas
     if (strtotime($data_saida) < strtotime($data_entrada)) {
         die("Erro: Data de saída não pode ser anterior à data de entrada.");
     }
 
-    // Preparar a query
     $stmt = $db->prepare('
         INSERT INTO reservas (
             id_utilizador, id_servico, data_entrada, data_saida,
@@ -43,7 +41,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if ($result) {
         echo "Reserva criada com sucesso!";
     } else {
-        // Mostrar erro do SQLite
         echo "Erro ao criar reserva: " . $db->lastErrorMsg();
     }
 } else {
