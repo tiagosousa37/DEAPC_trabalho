@@ -8,7 +8,6 @@ $tipo = $_GET['tipo'] ?? '';
 $continente = $_GET['continente'] ?? '';
 $data = $_GET['data'] ?? '';
 
-// Monta a query com os filtros
 $query = "SELECT * FROM servicos WHERE 1=1";
 if ($tipo !== '') $query .= " AND tipo = :tipo";
 if ($continente !== '') $query .= " AND continente = :continente";
