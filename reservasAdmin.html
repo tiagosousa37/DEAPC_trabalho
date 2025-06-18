@@ -54,42 +54,6 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>#001</td>
-            <td>Ana Silva</td>
-            <td>Hotel Praia Sol</td>
-            <td>05-04-2025</td>
-            <td>10-04-2025</td>
-            <td><span class="status confirmed">Confirmada</span></td>
-            <td>
-              <button class="btn edit">Editar</button>
-              <button class="btn delete">Eliminar</button>
-            </td>
-          </tr>
-          <tr>
-            <td>#002</td>
-            <td>Ricardo Jorge</td>
-            <td>Voo Porto → Zurique</td>
-            <td>20-03-2025</td>
-            <td></td>
-            <td><span class="status pending">Pendente</span></td>
-            <td>
-              <button class="btn edit">Editar</button>
-              <button class="btn delete">Eliminar</button>
-            </td>
-          </tr>
-          <tr>
-            <td>#003</td>
-            <td>Diana Costa</td>
-            <td>Concerto Bad Bunny</td>
-            <td>26-05-2026</td>
-            <td>26-05-2026</td>
-            <td><span class="status canceled">Cancelada</span></td>
-            <td>
-              <button class="btn edit">Editar</button>
-              <button class="btn delete">Eliminar</button>
-            </td>
-          </tr>
         </tbody>
       </table>
     </section>
@@ -109,38 +73,6 @@
 
   </main>
 
-  <script>
-    const dataInput = document.querySelector('#dataSelecionada');
-    const listaReservas = document.querySelector('#listaReservas');
-
-    const reservas = [
-      { id: "#1001", cliente: "Ana Silva", servico: "Hotel Praia Sol", dataEntrada: "2025-04-05" },
-      { id: "#1002", cliente: "Carlos Mendes", servico: "Voo Lisboa → Madrid", dataEntrada: "2025-03-20" },
-      { id: "#1003", cliente: "Diana Costa", servico: "Festival da Música", dataEntrada: "2025-06-15" }
-    ];
-
-    dataInput.addEventListener('change', () => {
-      const dataSelecionada = dataInput.value;
-
-      if (!dataSelecionada) {
-        listaReservas.innerHTML = '<li>Selecione uma data.</li>';
-        return;
-      }
-
-      const reservasDoDia = reservas.filter(reserva => reserva.dataEntrada === dataSelecionada);
-
-      if (reservasDoDia.length === 0) {
-        listaReservas.innerHTML = '<li>Nenhuma reserva encontrada para esta data.</li>';
-      } else {
-        listaReservas.innerHTML = '';
-        reservasDoDia.forEach(reserva => {
-          const li = document.createElement('li');
-          li.textContent = `${reserva.cliente} - ${reserva.servico}`;
-          listaReservas.appendChild(li);
-        });
-      }
-    });
-  </script>
-
+<script src="scripts/reservasAdmin.js"></script>
 </body>
 </html>
