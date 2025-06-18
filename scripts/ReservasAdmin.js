@@ -58,75 +58,119 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 });
 const dataInput = document.querySelector('#dataSelecionada');
-  const listaReservas = document.querySelector('#listaReservas');
-  const tabelaCorpo = document.querySelector('tbody');
+const listaReservas = document.querySelector('#listaReservas');
+const tabelaCorpo = document.querySelector('tbody');
 
-  let reservas = [
-    { id: "#001", cliente: "Ana Silva", servico: "Hotel Praia Sol", entrada: "2025-04-05", saida: "2025-04-10", estado: "Confirmada" },
-    { id: "#002", cliente: "Ricardo Jorge", servico: "Voo Porto → Zurique", entrada: "2025-03-20", saida: "", estado: "Pendente" },
-    { id: "#003", cliente: "Diana Costa", servico: "Concerto Bad Bunny", entrada: "2026-05-26", saida: "2026-05-26", estado: "Cancelada" }
-  ];
+let reservas = [];
 
-  function renderizarTabela() {
-    tabelaCorpo.innerHTML = "";
-    reservas.forEach((reserva, index) => {
-      const tr = document.createElement("tr");
-      tr.innerHTML = `
-        <td>${reserva.id}</td>
-        <td>${reserva.cliente}</td>
-        <td>${reserva.servico}</td>
-        <td>${reserva.entrada}</td>
-        <td>${reserva.saida}</td>
-        <td><span class="status ${reserva.estado.toLowerCase()}">${reserva.estado}</span></td>
-        <td>
-          <button class="btn edit" data-index="${index}">Editar</button>
-          <button class="btn delete" data-index="${index}">Eliminar</button>
-        </td>
-      `;
-      tabelaCorpo.appendChild(tr);
-    });
-  }
-
-  function atualizarReservasDoDia(data) {
-    const reservasDoDia = reservas.filter(r => r.entrada === data);
-    listaReservas.innerHTML = reservasDoDia.length
-      ? reservasDoDia.map(r => `<li>${r.cliente} - ${r.servico}</li>`).join('')
-      : '<li>Nenhuma reserva encontrada para esta data.</li>';
-  }
-
-  dataInput?.addEventListener('change', () => {
-    const dataSelecionada = dataInput.value;
-    if (!dataSelecionada) {
-      listaReservas.innerHTML = '<li>Selecione uma data.</li>';
-      return;
-    }
-    atualizarReservasDoDia(dataSelecionada);
+function renderizarTabela() {
+  tabelaCorpo.innerHTML = "";
+  reservas.forEach((reserva, index) => {
+    const tr = document.createElement("tr");
+    tr.innerHTML = `
+      <td>${reserva.id}</td>
+      <td>${reserva.cliente}</td>
+      <td>${reserva.servico}</td>
+      <td>${reserva.data_entrada}</td>
+      <td>${reserva.data_saida || ''}</td>
+      <td><span class="status ${reserva.estado.toLowerCase()}">${reserva.estado}</span></td>
+      <td>
+        <button class="btn edit" data-id="${reserva.id}">Editar</button>
+        <button class="btn delete" data-id="${reserva.id}">Eliminar</button>
+      </td>
+    `;
+    tabelaCorpo.appendChild(tr);
   });
+}
 
-  tabelaCorpo.addEventListener('click', (e) => {
-    const index = e.target.dataset.index;
-    if (e.target.classList.contains('edit')) {
-      const novaDataEntrada = prompt("Nova data de entrada (YYYY-MM-DD):", reservas[index].entrada);
-      if (novaDataEntrada) reservas[index].entrada = novaDataEntrada;
+function atualizarReservasDoDia(data) {
+  const reservasDoDia = reservas.filter(r => r.data_entrada === data);
+  listaReservas.innerHTML = reservasDoDia.length
+    ? reservasDoDia.map(r => `<li>${r.cliente} - ${r.servico}</li>`).join('')
+    : '<li>Nenhuma reserva encontrada para esta data.</li>';
+}
 
-      const novaDataSaida = prompt("Nova data de saída (YYYY-MM-DD):", reservas[index].saida);
-      if (novaDataSaida) reservas[index].saida = novaDataSaida;
-
-      const novoEstado = prompt("Novo estado (Confirmada, Pendente, Cancelada):", reservas[index].estado);
-      if (novoEstado) reservas[index].estado = novoEstado;
-
+function carregarReservas() {
+  fetch('getReservas.php')
+    .then(res => res.json())
+    .then(data => {
+      reservas = data;
       renderizarTabela();
-      if (dataInput.value) atualizarReservasDoDia(dataInput.value);
-    }
+      if (dataInput.value) {
+        atualizarReservasDoDia(dataInput.value);
+      }
+    })
+    .catch(() => {
+      alert('Erro ao carregar reservas');
+    });
+}
 
-    if (e.target.classList.contains('delete')) {
-      if (confirm("Tem a certeza que deseja eliminar esta reserva?")) {
-        reservas.splice(index, 1);
+dataInput.addEventListener('change', () => {
+  if (!dataInput.value) {
+    listaReservas.innerHTML = '<li>Selecione uma data.</li>';
+    return;
+  }
+  atualizarReservasDoDia(dataInput.value);
+});
+
+tabelaCorpo.addEventListener('click', (e) => {
+  const btn = e.target;
+  const id = btn.dataset.id;
+  if (!id) return;
+
+  if (btn.classList.contains('edit')) {
+    const reserva = reservas.find(r => r.id == id);
+    if (!reserva) return;
+
+    const novaEntrada = prompt("Nova data de entrada (YYYY-MM-DD):", reserva.data_entrada);
+    if (!novaEntrada) return;
+
+    const novaSaida = prompt("Nova data de saída (YYYY-MM-DD):", reserva.data_saida || "");
+    if (novaSaida === null) return;
+
+    const novoEstado = prompt("Novo estado (Confirmada, Pendente, Cancelada):", reserva.estado);
+    if (!novoEstado) return;
+
+    fetch('editarReserva.php', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+      body: `id=${encodeURIComponent(id)}&data_entrada=${encodeURIComponent(novaEntrada)}&data_saida=${encodeURIComponent(novaSaida)}&estado=${encodeURIComponent(novoEstado)}`
+    })
+    .then(res => res.json())
+    .then(resp => {
+      if (resp.sucesso) {
+        reserva.data_entrada = novaEntrada;
+        reserva.data_saida = novaSaida;
+        reserva.estado = novoEstado;
         renderizarTabela();
         if (dataInput.value) atualizarReservasDoDia(dataInput.value);
+      } else {
+        alert('Erro ao atualizar reserva');
       }
-    }
-  });
+    })
+    .catch(() => alert('Erro ao comunicar com o servidor'));
+  }
 
-  renderizarTabela();
+  if (btn.classList.contains('delete')) {
+    if (confirm("Tem a certeza que deseja eliminar esta reserva?")) {
+      fetch('eliminarReserva.php', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+        body: `id=${encodeURIComponent(id)}`
+      })
+      .then(res => res.json())
+      .then(resp => {
+        if (resp.sucesso) {
+          reservas = reservas.filter(r => r.id != id);
+          renderizarTabela();
+          if (dataInput.value) atualizarReservasDoDia(dataInput.value);
+        } else {
+          alert('Erro ao eliminar reserva');
+        }
+      })
+      .catch(() => alert('Erro ao comunicar com o servidor'));
+    }
+  }
 });
+
+carregarReservas();
