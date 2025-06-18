@@ -7,7 +7,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
     let valid = true;
 
-    // Limpar estilos antigos
     [email, password].forEach((el) => {
       el.style.border = "";
       el.style.backgroundColor = "";
