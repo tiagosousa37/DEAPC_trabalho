@@ -1,16 +1,36 @@
 document.addEventListener("DOMContentLoaded", function () {
   const params = new URLSearchParams(window.location.search);
 
-  const titulo = params.get("titulo");
+  const destino = params.get("destino");
   const data = params.get("data");
   const imagem = params.get("imagem");
 
-  if (titulo) {
-    document.getElementById("campo-destino").textContent = titulo;
-    document.getElementById("campo-local").value = titulo;
+  console.log("Destino recebido:", destino); 
+
+  if (destino) {
+    const campoDestino = document.getElementById("campo-destino");
+    if (campoDestino) {
+      campoDestino.textContent = destino;
+    }
+
+    let campoLocal = document.getElementById("campo-local");
+    if (!campoLocal) {
+      campoLocal = document.createElement("input");
+      campoLocal.type = "hidden";
+      campoLocal.name = "local";
+      campoLocal.id = "campo-local";
+      const form = document.querySelector("form");
+      if (form) {
+        form.appendChild(campoLocal);
+      }
+    }
+    campoLocal.value = destino;
   }
 
-  if (data) document.getElementById("campo-data").value = data;
+  if (data) {
+    const inputData = document.getElementById("campo-data");
+    if (inputData) inputData.value = data;
+  }
 
   if (imagem) {
     const imgPreview = document.getElementById("imagem-preview");
@@ -20,3 +40,4 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 });
+
