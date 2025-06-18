@@ -13,7 +13,6 @@ $imagens = [
     'hoteis' => 'images/maldivas.jpg'
 ];
 
-// Aeroportos organizados por continente
 $aeroportosPorContinente = [
     'europa' => ['Lisboa', 'Porto', 'Madrid', 'Paris', 'Londres', 'Berlim'],
     'america' => ['Nova Iorque', 'São Paulo', 'Buenos Aires', 'Cidade do México', 'Toronto'],
@@ -22,7 +21,6 @@ $aeroportosPorContinente = [
     'oceania' => ['Sydney', 'Melbourne', 'Auckland']
 ];
 
-// Juntar todos aeroportos numa só lista para partidas aleatórias
 $aeroportosTodos = array_merge(...array_values($aeroportosPorContinente));
 
 $inicio = strtotime('01-01-2025');
@@ -36,38 +34,36 @@ for ($i = 0; $i < $quantidade; $i++) {
     $data = date('d-m-Y', rand($inicio, $fim));
     $imagem = $imagens[$tipo];
 
-    // Título por tipo
     $titulo = match($tipo) {
         'voos' => "Voos para " . ucfirst($continente),
         'concertos' => "Concerto na " . ucfirst($continente),
         'hoteis' => "Hotel na " . ucfirst($continente),
     };
 
-    // Preço aleatório
     $preco = match($tipo) {
         'voos' => rand(100, 1500),
         'concertos' => rand(30, 300),
         'hoteis' => rand(80, 500),
     };
 
-    // Inserção diferenciada se for voo
     if ($tipo === 'voos') {
-        // Partida aleatória de qualquer lugar
         $partida = $aeroportosTodos[array_rand($aeroportosTodos)];
-        // Destino dentro do continente escolhido
         $destinosPossiveis = $aeroportosPorContinente[$continente];
 
         do {
             $destino = $destinosPossiveis[array_rand($destinosPossiveis)];
-        } while ($destino === $partida); // evita partida igual ao destino
+        } while ($destino === $partida);
 
         $stmt = $db->prepare("INSERT INTO servicos (tipo, continente, data, titulo, imagem, partida, destino, preco)
                               VALUES (:tipo, :continente, :data, :titulo, :imagem, :partida, :destino, :preco)");
         $stmt->bindValue(':partida', $partida, SQLITE3_TEXT);
         $stmt->bindValue(':destino', $destino, SQLITE3_TEXT);
     } else {
-        $stmt = $db->prepare("INSERT INTO servicos (tipo, continente, data, titulo, imagem, preco)
-                              VALUES (:tipo, :continente, :data, :titulo, :imagem, :preco)");
+        $destino = $aeroportosPorContinente[$continente][array_rand($aeroportosPorContinente[$continente])];
+
+        $stmt = $db->prepare("INSERT INTO servicos (tipo, continente, data, titulo, imagem, destino, preco)
+                              VALUES (:tipo, :continente, :data, :titulo, :imagem, :destino, :preco)");
+        $stmt->bindValue(':destino', $destino, SQLITE3_TEXT);
     }
 
     $stmt->bindValue(':tipo', $tipo, SQLITE3_TEXT);
@@ -82,4 +78,3 @@ for ($i = 0; $i < $quantidade; $i++) {
 
 echo "$quantidade serviços inseridos com sucesso.";
 ?>
-
