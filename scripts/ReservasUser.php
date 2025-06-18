@@ -2,18 +2,22 @@
 $db = new SQLite3('BD.db');
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $id_utilizador = $_POST['id_utilizador'] ?? '';
-    $id_servico = $_POST['id_servico'] ?? '';
+    $id_utilizador = $_POST['id_utilizador'] ?? 0;
+    $id_servico = $_POST['id_servico'] ?? 0;
     $data_entrada = $_POST['data_entrada'] ?? '';
     $data_saida = $_POST['data_saida'] ?? '';
     $nome = $_POST['nome'] ?? '';
-    $num_pessoas = $_POST['num_pessoas'] ?? 1;
+    $num_pessoas = (int)($_POST['pessoas'] ?? 1);
     $telefone = $_POST['telefone'] ?? '';
+    $local = $_POST['local'] ?? 'Desconhecido';
+    $pagamento = $_POST['pagamento'] ?? 'MBWAY';
 
-    echo "<pre>Dados recebidos:\n";
-    print_r($_POST);
-    echo "</pre>";
+    // Validar datas
+    if (strtotime($data_saida) < strtotime($data_entrada)) {
+        die("Erro: Data de saída não pode ser anterior à data de entrada.");
+    }
 
+    // Preparar a query
     $stmt = $db->prepare('
         INSERT INTO reservas (
             id_utilizador, id_servico, data_entrada, data_saida,
@@ -30,16 +34,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $stmt->bindValue(':data_saida', $data_saida, SQLITE3_TEXT);
     $stmt->bindValue(':nome', $nome, SQLITE3_TEXT);
     $stmt->bindValue(':num_pessoas', $num_pessoas, SQLITE3_INTEGER);
-    $stmt->bindValue(':telefone', $telefone, SQLITE3_TEXT); // use TEXT, não INTEGER
-    $stmt->bindValue(':local', $_POST['local'] ?? 'Desconhecido', SQLITE3_TEXT);
-    $stmt->bindValue(':pagamento', $_POST['pagamento'] ?? 'MBWAY', SQLITE3_TEXT);
+    $stmt->bindValue(':telefone', $telefone, SQLITE3_TEXT);
+    $stmt->bindValue(':local', $local, SQLITE3_TEXT);
+    $stmt->bindValue(':pagamento', $pagamento, SQLITE3_TEXT);
 
     $result = $stmt->execute();
 
     if ($result) {
         echo "Reserva criada com sucesso!";
     } else {
-        echo "Erro ao criar reserva.";
+        // Mostrar erro do SQLite
+        echo "Erro ao criar reserva: " . $db->lastErrorMsg();
     }
 } else {
     echo "Nenhum dado POST recebido.";
